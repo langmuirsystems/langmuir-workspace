@@ -1,0 +1,58 @@
+# ─── Workspace root .gitignore ────────────────────────────────────────────────
+# This repo (langmuir-workspace) tracks the layer ABOVE the nine service repos:
+# docs, the sync scripts, Epicor reference, and the Apps Script sources.
+#
+# The nine service folders below are their own GitHub repos and clone INTO this
+# folder. Git must not try to track them here, or you get nested-repo chaos.
+
+# ─── The nine service repos (cloned by scripts/bootstrap.sh) ──────────────────
+/pms/
+/pms-test/
+/ci/
+/hub/
+/procurement/
+/scheduling/
+/tooling/
+/vision/
+/bom/
+
+# ─── Retired code ─────────────────────────────────────────────────────────────
+# _archive/ is 22 MB of superseded systems and contains nested .git folders
+# (_archive/kpi/.git, _archive/cyclecount/.git) plus a node_modules tree.
+# The code itself is preserved by archiving the LangmuirProductionKPI and
+# CycleCount repos on GitHub, which is the right home for it.
+/_archive/
+/_to_delete/
+
+# ─── Large binaries git handles badly ─────────────────────────────────────────
+# 18 MB of product drawings. Belongs in Drive or the PDM system, not git.
+/Apollo First Production Run Revisions/
+
+# Presentation decks, not system files
+*.pptx
+
+# ─── Real production data ─────────────────────────────────────────────────────
+# Exported stock movements, 890 KB of real transactions. Matches the data files
+# only, in any directory. scripts/import-inv-history.sh is tooling and IS tracked.
+inv-history*.json
+
+# ─── Secrets ──────────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+.clasprc.json
+*.pem
+*.key
+id_ed25519*
+id_rsa*
+
+# ─── Noise ────────────────────────────────────────────────────────────────────
+node_modules/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+npm-debug.log*
+.vscode/
+.idea/
+~$*

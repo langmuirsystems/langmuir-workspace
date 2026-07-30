@@ -1,0 +1,20 @@
+# Normalize line endings so a Mac and a Windows machine can share this repo
+# without every file showing as changed on the first commit from Windows.
+#
+# Copy this file into each of the nine service repos too.
+
+* text=auto eol=lf
+
+# Shell scripts must stay LF or Git Bash will not run them
+*.sh text eol=lf
+
+# Binary, never touch
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.docx binary
+*.xlsx binary
+*.pptx binary
+*.zip binary
