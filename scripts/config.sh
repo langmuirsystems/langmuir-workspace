@@ -60,6 +60,9 @@ fi
 # relocated to top level from "Reorder points and stockout indicator".
 # 2026-07-30 turnover: repos transferred to the langmuirsystems org.
 # 2026-07-31: transport is resolved per machine, not hardcoded to HTTPS.
+# 2026-07-31: bom is `Langmuir-bom` on GitHub, capital L. We were pushing to
+#   `langmuir-bom` and riding a rename redirect. Do not "fix" the capital.
+#   The Railway SERVICE is still lowercase `langmuir-bom`; they differ on purpose.
 REPOS=(
   "pms|pms|$GIT_BASE/LangmuirPMS.git|langmuir-pms"
   "pms-test|pms-test|$GIT_BASE/LangmuirPMS_Test.git|langmuir-pms-test"
@@ -69,7 +72,7 @@ REPOS=(
   "hub|hub|$GIT_BASE/langmuirhub.git|langmuir-hub"
   "procurement|procurement|$GIT_BASE/Langmuir-procurement.git|langmuir-procurement"
   "ci|ci|$GIT_BASE/langmuir-ci.git|langmuir-ci"
-  "bom|bom|$GIT_BASE/langmuir-bom.git|langmuir-bom"
+  "bom|bom|$GIT_BASE/Langmuir-bom.git|langmuir-bom"
 )
 
 # The tenth repo: the workspace root itself. Not in REPOS because it is the
