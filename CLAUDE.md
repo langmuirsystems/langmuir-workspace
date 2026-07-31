@@ -107,19 +107,34 @@ workflow is:
 - **The human runs git themselves** — Claude proposes the exact command or the exact
   GitHub Desktop steps.
 
+### Two people push these repos. Pull before you edit.
+
+Since 2026-07-31 there are two of us pushing to all ten repos. A clone that has not
+been pulled is not the current version, and editing it produces a conflict at push
+time at best and a silently reverted fix at worst. So:
+
+**`./scripts/pull-all.sh` at the start of every session, before Claude edits
+anything.** Not before the push. Before the *edit*. Pulling after the work is done
+just moves the conflict later.
+
+Claude should ask for this explicitly if it does not know whether the workspace has
+been pulled this session, and should not start editing until it has been.
+
 Standard flow when a change is requested:
 
-1. Check `SYSTEM-STATE.md` for which repo serves the feature.
-2. Check `docs/knowledge/` for that subsystem's rules.
-3. Edit files in the relevant subfolder.
-4. Show the diff and wait for approval.
-5. On approval, hand over the exact steps.
+1. `./scripts/pull-all.sh` — or confirm it has already run this session.
+2. Check `SYSTEM-STATE.md` for which repo serves the feature.
+3. Check `docs/knowledge/` for that subsystem's rules.
+4. Edit files in the relevant subfolder.
+5. Show the diff and wait for approval.
+6. On approval, hand over the exact steps.
 
 **On a Mac (Terminal):**
 
 ```
 cd ~/Documents/Claude/Projects/Langmuir\ Production\ Management\ System
-./scripts/sync-repo.sh pms push "fix: corrected line totals"
+./scripts/pull-all.sh                                    # FIRST. Every session.
+./scripts/push.sh pms "fix: corrected line totals"       # pulls --rebase, then pushes
 ./scripts/sync-gscript.sh pms-locations push
 ./scripts/status.sh
 ```
@@ -157,12 +172,21 @@ Then add a row to `SYSTEM-STATE.md` and, if it deploys, a Railway service.
   `WINDOWS-SETUP.md` for the three required `git config` settings.
 - `node` (LTS) — to run any service locally.
 - `clasp` for Google Scripts: `npm install -g @google/clasp`, then `clasp login`.
-- **Git auth:** repos live in the `langmuirsystems` GitHub org and authenticate over
-  HTTPS. GitHub Desktop and Git Credential Manager handle the login through the
-  browser on both macOS and Windows, so there are no SSH keys to replicate.
-  Historically the Mac used a `github-langmuir` SSH host alias defined in
-  `~/.ssh/config`; that alias exists on exactly one machine and is being retired.
-  See `docs/GITHUB-ORG-TRANSFER.md`.
+- **Git auth:** repos live in the `langmuirsystems` GitHub org. The transport is
+  **resolved per machine** by `scripts/config.sh`, because the two machines cannot
+  use the same one:
+  - **Windows / the director → HTTPS.** GitHub Desktop and Git Credential Manager
+    log in through the browser. Nothing to set up, no SSH keys.
+  - **Brendan's Mac → the `github-langmuir` SSH alias** in `~/.ssh/config`. Plain
+    HTTPS 404s there: the Keychain credential for `github.com` is `brf1998-code`,
+    a different account with no org access, and GitHub returns 404 rather than 403
+    for a private repo your credential cannot see. Verified 2026-07-31.
+
+  Resolution order: exported `GIT_BASE` → `scripts/config.local.sh` (gitignored,
+  per-machine override) → `github-langmuir` alias present → HTTPS. Check with
+  `source scripts/config.sh && echo "$GIT_TRANSPORT -> $GIT_BASE"`.
+  Remote URLs are per clone, so the two machines differing here is fine and
+  intended. See `TURNOVER-PLAN.md` Phase 2 and `docs/GITHUB-ORG-TRANSFER.md`.
 
 ## Important deployment notes
 

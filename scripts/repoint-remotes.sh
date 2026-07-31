@@ -26,7 +26,13 @@ fi
 [[ $APPLY -eq 0 ]] && echo "DRY RUN. Re-run with --apply to make changes." && echo
 
 changed=0
-for entry in "${REPOS[@]}"; do
+
+# The workspace root is the tenth repo. It was missing from this loop, so every
+# earlier run left the root on the old owner path. Added 2026-07-31.
+ALL=("workspace|.|$WORKSPACE_URL|(no railway service)")
+for entry in "${REPOS[@]}"; do ALL+=("$entry"); done
+
+for entry in "${ALL[@]}"; do
   IFS='|' read -r name folder url service <<< "$entry"
   path="$PROJECT_ROOT/$folder"
 

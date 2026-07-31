@@ -160,6 +160,22 @@ ensure_origin() {
 
 do_push() {
   local branch; branch="$("${GITC[@]}" rev-parse --abbrev-ref HEAD)"
+
+  # Two people push this repo now (2026-07-31). Pull before push, unless the
+  # remote branch does not exist yet, which is the very first push.
+  if "${GITC[@]}" ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+    say ""
+    say "Pulling $branch first ..."
+    if ! "${GITC[@]}" pull --rebase origin "$branch"; then
+      say ""
+      die "pull --rebase hit a conflict. NOTHING was pushed, and your commit is
+  safe on disk. Resolve it:
+      git status                          # the conflicted files
+      git add -A && git rebase --continue
+  then re-run this script. Or back out entirely: git rebase --abort"
+    fi
+  fi
+
   say ""
   say "Pushing $branch to origin ..."
   if "${GITC[@]}" push -u origin "$branch"; then
@@ -187,7 +203,11 @@ do_push() {
 }
 
 unpushed_count() {
-  local branch; branch="$("${GITC[@]}" rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)"
+  # symbolic-ref --quiet prints nothing on a detached/unborn HEAD. rev-parse
+  # --abbrev-ref would print "HEAD" AND fail, so `|| echo main` would append a
+  # second line and every later use of $branch would be malformed.
+  local branch; branch="$("${GITC[@]}" symbolic-ref --quiet --short HEAD 2>/dev/null)"
+  [ -z "$branch" ] && { echo 0; return; }
   if "${GITC[@]}" rev-parse --verify -q "origin/$branch" >/dev/null 2>&1; then
     "${GITC[@]}" rev-list --count "origin/$branch..$branch" 2>/dev/null || echo 0
   else

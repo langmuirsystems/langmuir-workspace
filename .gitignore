@@ -56,3 +56,8 @@ npm-debug.log*
 .vscode/
 .idea/
 ~$*
+
+# ─── Per-machine git transport override ───────────────────────────────────────
+# scripts/config.sh resolves SSH vs HTTPS by machine. Drop a config.local.sh
+# next to it to force one. It is machine-specific and must never be committed.
+scripts/config.local.sh

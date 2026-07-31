@@ -121,79 +121,107 @@ the GitHub App needs reauthorizing before you touch the other eight. Leave
 **Never delete and recreate a Railway service to fix a connection problem.**
 Recreating loses the environment variables and causes the outage you were avoiding.
 
-### Phase 2 — switch every remote to HTTPS
+### Phase 2 — switch every remote to the org path
 
-Right now eight of nine remotes look like this:
+Done 2026-07-31 by `./scripts/repoint-remotes.sh --apply`. What follows is why it
+does not simply move everything to HTTPS, because that was the original plan and
+it turned out to be wrong.
+
+**The original plan: move both machines to HTTPS.** `github-langmuir` is a host
+alias I defined in `~/.ssh/config` on my Mac. It does not exist anywhere else, so
+on the director's Windows machine that URL resolves to nothing and every clone
+fails with a confusing DNS error. That is still the single biggest Mac-to-Windows
+landmine in the setup, and HTTPS still fixes it for him.
+
+**What broke it.** `Langmuir-procurement` was the only clone already on HTTPS, and
+after the transfer it started failing:
 
 ```
-git@github-langmuir:BrendanLangmuir/LangmuirPMS.git
+fatal: repository 'https://github.com/BrendanLangmuir/Langmuir-procurement.git/' not found
 ```
 
-`github-langmuir` is a host alias I defined in `~/.ssh/config` on my Mac. It does
-not exist anywhere else. On the director's Windows machine that URL resolves to
-nothing and every clone fails with a confusing DNS error. This is the single
-biggest Mac-to-Windows landmine in the whole setup.
+Not a redirect problem. GitHub returns 404 rather than 403 for a private repo your
+credential cannot see, and the credential in this Mac's Keychain for `github.com`
+is `brf1998-code`, a different account with no access to the org. That is exactly
+*why* the SSH alias was created years ago: it routes around the Keychain. Verified
+2026-07-31:
 
-The fix is to move both machines to HTTPS. GitHub Desktop logs in through the
-browser and Git Credential Manager stores the token, so there are no SSH keys, no
-`~/.ssh/config`, and no passphrase prompts on either side. One config file that
-works identically on both machines is worth more than whatever I was getting from
-the SSH alias.
+| check | result |
+|---|---|
+| Keychain identity for `github.com` | `brf1998-code` |
+| `langmuirsystems/...` over HTTPS | FAIL (404) |
+| `langmuirsystems/...` over the `github-langmuir` alias | OK |
+| who the alias authenticates as | `BrendanLangmuir` |
 
-Run from the workspace root in Terminal, after the transfers:
+So repointing all ten clones to HTTPS on this Mac would have taken nine working
+repos down to zero. The org was never the problem. The Keychain was.
+
+**What we did instead.** Remote URLs are stored per clone, so the two machines do
+not have to match. `scripts/config.sh` now resolves the transport per machine:
+
+1. `GIT_BASE` already exported in the environment wins.
+2. `scripts/config.local.sh` (gitignored) is a per-machine override.
+3. A `github-langmuir` Host block in `~/.ssh/config` → SSH.
+4. Otherwise → HTTPS.
+
+The Mac lands on rule 3 and keeps working. Windows has no such alias, lands on
+rule 4, and gets HTTPS with nothing to set up. Both point at `langmuirsystems`.
+
+To check what a machine resolved to:
 
 ```bash
-for d in pms pms-test ci hub procurement scheduling tooling vision bom; do
-  echo "--- $d"
-  git -C "$d" remote -v | head -1
-done
+source scripts/config.sh && echo "$GIT_TRANSPORT  ->  $GIT_BASE"
 ```
 
-The updated `config.sh` already has `GH_ORG="langmuirsystems"` filled in and builds
-HTTPS URLs from it. `./scripts/repoint-remotes.sh` (see Phase 3) then rewrites all
-nine remotes in one pass.
-
-### Phase 3 — create the workspace repo
-
-The files are already sitting in the workspace root and in `scripts/`. The new
-`config.sh` is delivered as **`scripts/config.sh.new`** on purpose, so it does not
-break the current sync scripts before the org transfer is done.
-
-1. Open `scripts/config.sh.new` and fill in `GH_ORG` at the top with the real org
-   slug.
-2. Swap it in:
+**Still open on the Mac (optional).** I cannot currently test what the director
+experiences, because I never authenticate over HTTPS. If that matters, add the
+work account as a second HTTPS identity by putting the username in the URL, which
+Git Credential Manager keys separately:
 
 ```bash
-cd ~/Documents/Claude/Projects/Langmuir\ Production\ Management\ System
-mv scripts/config.sh scripts/config.sh.pre-turnover
-mv scripts/config.sh.new scripts/config.sh
-./scripts/repoint-remotes.sh            # dry run, read the output
-./scripts/repoint-remotes.sh --apply    # rewrites all nine remotes to HTTPS
-./scripts/status.sh                     # confirm all nine still talk to GitHub
+git -C pms remote set-url origin https://BrendanLangmuir@github.com/langmuirsystems/LangmuirPMS.git
+git -C pms ls-remote                # prompts once for a PAT, then caches it
 ```
 
-3. Then put the root under version control:
+Not required for anything to work. It only buys the ability to reproduce his setup.
+
+### Phase 3 — the workspace repo and the sync scripts
+
+The tenth repo (`langmuir-workspace`) is created and pushed. `scripts/config.sh`
+was swapped in on 2026-07-31 and `config.sh.new` is gone. What that swap changed,
+beyond the org slug:
+
+**`pull-all.sh` could not run at all.** It has `set -u` and prints `$GH_ORG`, which
+the pre-turnover `config.sh` never defined. Unbound variable, immediate exit. The
+one script written to make pull-before-push easy was the one script that could not
+start. Fixed by the swap.
+
+**Nothing in the push path pulled.** `push.sh` went add → commit → push with no
+fetch, and `push-all.sh` delegates to it. With one person that is fine. With two,
+the second person's push fails non-fast-forward, and inside `push-all.sh` it fails
+partway through a multi-repo sweep and leaves the workspace half-pushed. `push.sh`
+and `push-workspace.sh` now `git pull --rebase` between the commit and the push,
+and **stop** on a conflict instead of pushing something half-resolved.
+
+**`push-pms.sh` silently undid the repoint.** It hardcoded
+`git remote set-url origin git@github-langmuir:BrendanLangmuir/LangmuirPMS.git`
+and ran it on every push, so one run after the repoint dragged pms back to the old
+owner path. It is now a three-line shim over `push.sh pms`.
+
+**`repoint-remotes.sh` skipped the workspace root.** It only walked `REPOS`, which
+is the nine services. The root is the tenth repo and was being left behind on every
+run. It now walks all ten.
+
+The daily rule, for both machines:
 
 ```bash
-cd ~/Documents/Claude/Projects/Langmuir\ Production\ Management\ System
-git init
-git add -A
-git status          # READ THIS. Confirm no .env, no service folder, no BAQ dump.
+./scripts/pull-all.sh                       # start of every session, no exceptions
+./scripts/pull-all.sh --check               # look, change nothing
+./scripts/pull-all.sh --autostash           # if you have uncommitted work
+./scripts/push.sh <repo> "message"          # pulls --rebase, then pushes
+./scripts/push-all.sh -n                    # dry run across every repo first
 ```
 
-Stop and actually read that `git status` before committing. If anything under
-`pms/`, `ci/`, `_archive/`, or any `.env` shows up, the ignore rules are wrong and
-I would be committing secrets and 22 MB of dead code.
-
-```bash
-git commit -m "chore: workspace root under version control"
-git branch -M main
-git remote add origin https://github.com/langmuirsystems/langmuir-workspace.git
-git push -u origin main
-```
-
-Create the empty `langmuir-workspace` repo on GitHub first (private, no README,
-no gitignore, nothing, or the push will conflict).
 
 ### Phase 4 — the things GitHub will never hold
 

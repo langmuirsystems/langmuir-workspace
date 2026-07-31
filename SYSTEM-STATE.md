@@ -8,7 +8,7 @@ standalone repo.
 
 ## The one rule
 
-**`pms/` (repo `BrendanLangmuir/LangmuirPMS`, service `langmuirproduction.up.railway.app`)
+**`pms/` (repo `langmuirsystems/LangmuirPMS`, service `langmuirproduction.up.railway.app`)
 is the center of gravity.** Modules keep migrating INTO it — the KPI board
 (2026-07-21) and cycle count both did. Before editing any feature, check whether
 pms serves it now. Retired snapshots live in `_archive/` and editing them changes
