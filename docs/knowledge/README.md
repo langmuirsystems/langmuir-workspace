@@ -9,6 +9,7 @@ Read the one that matches what you are about to touch, before you touch it.
 
 ## Start here
 
+- [Git workflow](git-workflow.md) — two people push these repos: pull before you EDIT. Also the per-machine SSH/HTTPS split and the exact repo names. Read this before touching git.
 - [System map](system-map.md) — which repo serves which feature. Read this first, every time.
 
 ## Shipping and packing (the largest, most-changed area)

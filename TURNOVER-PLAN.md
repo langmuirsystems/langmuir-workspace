@@ -69,7 +69,7 @@ Epicor host references in it.
 
 ## 4. Checklist, in order
 
-### Phase 0 — unblock the transfer
+### Phase 0 — unblock the transfer  ✅ DONE 2026-07-30
 
 The org already exists (`langmuirsystems`) and the director is already its owner.
 The blocker is on my side: I am an **outside collaborator**, which carries no
@@ -80,16 +80,16 @@ offers "create a new organization."
 Full detail and the exact click paths are in **`docs/GITHUB-ORG-TRANSFER.md`**. Send
 that file to him. Short version:
 
-- [ ] He invites me to `langmuirsystems` as a **Member** (Settings → People →
+- [x] He invites me to `langmuirsystems` as a **Member** (Settings → People →
       Invite member). Outside collaborator does not upgrade on its own.
-- [ ] He confirms Settings → Member privileges → **Repository creation** has
+- [x] He confirms Settings → Member privileges → **Repository creation** has
       **Private** enabled. If only Public is on, the transfer fails with a confusing
       visibility error instead of a permission one.
-- [ ] I confirm 2FA is on for my account. The org badge says 2FA required.
-- [ ] I accept the invite, then re-open the transfer dialog. `langmuirsystems`
+- [x] I confirm 2FA is on for my account. The org badge says 2FA required.
+- [x] I accept the invite, then re-open the transfer dialog. `langmuirsystems`
       should now appear.
 
-### Phase 1 — move the nine repos into the org
+### Phase 1 — move the nine repos into the org  ✅ DONE 2026-07-31
 
 For each repo: Settings → General → scroll to bottom → Danger Zone → Transfer
 ownership → type the repo name → pick `langmuirsystems`.
@@ -108,15 +108,15 @@ up, push a trivial commit, and see whether Railway builds it. Now you know wheth
 the GitHub App needs reauthorizing before you touch the other eight. Leave
 `LangmuirPMS` for last.
 
-- [ ] LangmuirPMS_Test  ← canary, do this one first
-- [ ] langmuirhub
-- [ ] langmuir-tooling
-- [ ] LangmuirVision
-- [ ] Langmuir-procurement
-- [ ] langmuir-bom
-- [ ] LangmuirScheduling
-- [ ] langmuir-ci
-- [ ] LangmuirPMS  ← last
+- [x] LangmuirPMS_Test  ← canary, do this one first
+- [x] langmuirhub
+- [x] langmuir-tooling
+- [x] LangmuirVision
+- [x] Langmuir-procurement
+- [x] Langmuir-bom
+- [x] LangmuirScheduling
+- [x] langmuir-ci
+- [x] LangmuirPMS  ← last
 
 **Never delete and recreate a Railway service to fix a connection problem.**
 Recreating loses the environment variables and causes the outage you were avoiding.

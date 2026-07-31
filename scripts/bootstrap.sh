@@ -8,6 +8,10 @@ set -uo pipefail
 source "$(dirname "$0")/config.sh"
 
 echo "── Bootstrapping GitHub repos ────────────────────────────────"
+echo "   org       : $GH_ORG"
+echo "   transport : $GIT_TRANSPORT"
+echo "   base      : $GIT_BASE"
+echo
 for entry in "${REPOS[@]}"; do
   IFS='|' read -r name folder url service <<< "$entry"
   path="$PROJECT_ROOT/$folder"
@@ -49,3 +53,8 @@ done
 
 echo
 echo "Done. Run ./scripts/status.sh to see what's tracked."
+echo
+echo "Next, and then at the start of every session after this:"
+echo "    ./scripts/pull-all.sh"
+echo "Two people push these repos. Pull before anything gets edited, not before"
+echo "it gets pushed. See docs/knowledge/git-workflow.md."

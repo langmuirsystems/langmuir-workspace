@@ -19,7 +19,8 @@ APPLY=0
 # and still holds the `github-langmuir` SSH alias URLs.
 if [[ -z "${GH_ORG:-}" ]]; then
   echo "GH_ORG is not set in scripts/config.sh."
-  echo "Swap in scripts/config.sh.new and fill in the org slug first (Phase 3)."
+  echo "scripts/config.sh should define GH_ORG=langmuirsystems. If it does not,"
+  echo "this clone has an out-of-date config.sh — pull the workspace root."
   exit 1
 fi
 

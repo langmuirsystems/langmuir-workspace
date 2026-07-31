@@ -29,7 +29,7 @@ repo.
 | `scheduling/` | LangmuirScheduling | langmuir-scheduling | Production scheduling. |
 | `tooling/` | langmuir-tooling | langmuir-tooling | Tooling request board. Sheet-backed. |
 | `vision/` | LangmuirVision | langmuir-vision | Part identification by photo. |
-| `bom/` | langmuir-bom | langmuir-bom | BOM manager, seeded from Epicor. |
+| `bom/` | Langmuir-bom | langmuir-bom | BOM manager, seeded from Epicor. |
 
 Not folders, but part of the system:
 
@@ -64,7 +64,7 @@ which repo serves it now.
 | Understand why something was built that way | [`docs/knowledge/`](docs/knowledge/) |
 | Fix something that is broken right now | [`docs/RUNBOOK.md`](docs/RUNBOOK.md) |
 | Get Epicor API access | [`techsupport/ACCESS_CHECKLIST.md`](techsupport/) |
-| Move the repos into the GitHub org | [`docs/GITHUB-ORG-TRANSFER.md`](docs/GITHUB-ORG-TRANSFER.md) |
+| Reconnect Railway after a repo move | [`docs/GITHUB-ORG-TRANSFER.md`](docs/GITHUB-ORG-TRANSFER.md) |
 | See the full handover checklist | [`TURNOVER-PLAN.md`](TURNOVER-PLAN.md) |
 
 `docs/knowledge/` is the part that is hardest to reconstruct. It is the reasoning
@@ -76,14 +76,20 @@ never refocus on a timer. Read the relevant file before changing that area.
 
 ## Daily workflow
 
-1. Pull the repo you are about to change.
+**Two people push these repos.** Pull before anything is edited, not before it is
+pushed. Editing a stale clone is how a fix gets quietly reverted.
+
+1. `./scripts/pull-all.sh` — first thing, every session, before any editing starts.
 2. Make the change. Cowork can do the editing; review the diff yourself.
-3. Commit and push from GitHub Desktop (or Terminal on a Mac).
+3. `./scripts/push.sh <repo> "message"` — pulls `--rebase`, then pushes. On Windows,
+   GitHub Desktop: Fetch origin, Pull, then Commit and Push.
 4. Railway rebuilds that one service. Usually under two minutes.
 5. Check the live page.
 
 For a change that spans several repos at once, `./scripts/push-all.sh -n` previews
 every repo with pending work. Run the dry run first; it commits with `git add -A`.
+The workspace root is not in `push-all.sh`; it has its own
+`./scripts/push-workspace.sh`.
 
 ---
 

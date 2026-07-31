@@ -9,6 +9,8 @@ source "$(dirname "$0")/config.sh"
 echo "════════════════════════════════════════════════════════════════"
 echo "  Langmuir Production Management — status"
 echo "════════════════════════════════════════════════════════════════"
+echo
+echo "  org $GH_ORG · $GIT_TRANSPORT"
 
 echo
 echo "GitHub repos:"

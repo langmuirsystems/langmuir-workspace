@@ -1,5 +1,11 @@
 # Moving the repos into the langmuirsystems org
 
+> **✅ DONE. The transfer completed 2026-07-31 and all 14 repos are in the org.**
+> Keep this file for two reasons: the Railway reconnect steps below are still the
+> procedure if auto-deploy stops, and the reasoning explains why the setup looks
+> the way it does. **Do not follow the setup steps as if they were pending.**
+> Current state and the daily workflow are in `CLAUDE.md` and `TURNOVER-PLAN.md`.
+
 Written 2026-07-30, after the transfer dialog refused to offer the org.
 
 ---
@@ -162,21 +168,35 @@ actually cause an outage, and it would lose the environment variables.
 
 ---
 
-## Then, and only then
+## What actually happened with the remotes (2026-07-31)
 
-Once all nine are in the org and Railway is deploying again, come back to
-`TURNOVER-PLAN.md` Phase 2 and switch the remotes off the `github-langmuir` SSH
-alias:
+**This section replaces the old instructions, which told you to swap in a
+`scripts/config.sh.new` that no longer exists.** That swap is done.
+
+The plan was to move both machines to HTTPS. That turned out to be wrong on the
+Mac: its Keychain credential for `github.com` is `brf1998-code`, a different
+account with no access to the org, and GitHub answers **404, not 403**, for a
+private repo your credential cannot see. So HTTPS looked like "repo not found"
+and would have taken nine working clones to zero.
+
+`scripts/config.sh` now resolves transport per machine, first match wins:
+
+1. `GIT_BASE` exported in the environment
+2. `scripts/config.local.sh` (gitignored, per-machine override)
+3. a `github-langmuir` Host block in `~/.ssh/config` → SSH
+4. otherwise → HTTPS
+
+The Mac lands on 3, Windows lands on 4, both point at `langmuirsystems`. Remote
+URLs are per clone, so the two machines differing is intended. Check with:
 
 ```bash
-cd ~/Documents/Claude/Projects/Langmuir\ Production\ Management\ System
-mv scripts/config.sh scripts/config.sh.pre-turnover
-mv scripts/config.sh.new scripts/config.sh
-# edit GH_ORG at the top -> langmuirsystems
-./scripts/repoint-remotes.sh          # dry run
-./scripts/repoint-remotes.sh --apply
-./scripts/status.sh
+source scripts/config.sh && echo "$GIT_TRANSPORT -> $GIT_BASE"
+./scripts/repoint-remotes.sh          # dry run, walks all ten repos
 ```
+
+One name gotcha: the BOM repo is **`Langmuir-bom`, capital L**. Pushing to
+`langmuir-bom` works via a GitHub rename redirect and prints
+`remote: This repository moved`. That line means `config.sh` has the wrong name.
 
 Sources:
 

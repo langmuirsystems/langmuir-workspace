@@ -1,5 +1,14 @@
 # Langmuir MRP — Project Handoff & Assessment
 
+> **⚠ SUPERSEDED for anything about process, git, or repo layout.** This was
+> written 2026-06-29, before the repos moved to the `langmuirsystems` org, before
+> a second person started pushing, and before pull-before-push existed. It is kept
+> for the MRP/scheduling design reasoning, which is still good.
+>
+> **A Cowork session picking up this project should read `CLAUDE.md` first**, then
+> `SYSTEM-STATE.md` for which repo serves what, then `docs/knowledge/`. Ignore any
+> git or workflow instructions below; `CLAUDE.md` is the current version.
+
 **For:** an incoming Cowork agent picking up this project.
 **From:** the working session that built the scheduling → MRP service.
 **Date:** 2026-06-29.

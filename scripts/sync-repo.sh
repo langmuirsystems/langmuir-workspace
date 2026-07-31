@@ -3,11 +3,17 @@
 #
 # Usage:
 #   ./scripts/sync-repo.sh pms pull
-#   ./scripts/sync-repo.sh pms push "fix: corrected line totals"
-#   ./scripts/sync-repo.sh kpi status
+#   ./scripts/sync-repo.sh pms push "fix: corrected line totals"   # -> push.sh
+#   ./scripts/sync-repo.sh pms status
+#
+# `push` is a thin wrapper over push.sh, which pulls --rebase before it pushes.
+# Prefer calling ./scripts/push.sh directly; this exists for old muscle memory
+# and for scripts/deploy-scheduling.sh.
 
 set -euo pipefail
 source "$(dirname "$0")/config.sh"
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 REPO_NAME="${1:-}"
 ACTION="${2:-status}"
@@ -44,18 +50,17 @@ case "$ACTION" in
     git pull --rebase
     ;;
   push)
+    # Delegated to push.sh since 2026-07-31. The version that used to live here
+    # did add -> commit -> push with NO pull, and exited 0 when there was nothing
+    # to commit, which silently skipped pushing an earlier unpushed commit. Two
+    # people push these repos now, so every route has to pull --rebase first.
+    # This is a wrapper, not a second implementation. Do not reinstate the git
+    # commands here.
     if [[ -z "$MESSAGE" ]]; then
       echo "Commit message required for push." >&2
       exit 1
     fi
-    if [[ -z "$(git status --porcelain)" ]]; then
-      echo "Nothing to commit in $REPO_NAME."
-      exit 0
-    fi
-    git add -A
-    git commit -m "$MESSAGE"
-    git push
-    echo "✓ Pushed $REPO_NAME. Railway service '$service' will restart."
+    exec "$SCRIPT_DIR/push.sh" "$REPO_NAME" "$MESSAGE"
     ;;
   *)
     echo "Unknown action: $ACTION (use pull|push|status)" >&2

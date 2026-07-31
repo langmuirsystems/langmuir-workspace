@@ -3,7 +3,7 @@
 Context for continuing work on the Langmuir PMS shipping module. Workspace root:
 `~/Documents/Claude/Projects/Langmuir Production Management System`. The live app is
 `pms/` → Railway `langmuir-pms` → langmuirproduction.up.railway.app. Brendan deploys with
-`bash scripts/push.sh pms "message"` (handles stale index.lock, always pushes, sets upstream).
+`bash scripts/push.sh pms "message"` (pulls --rebase first, handles stale index.lock, always pushes, sets upstream).
 Project memory files (MEMORY.md + topic files) have deeper detail on everything below.
 
 ## ⚠ ONE OUTSTANDING ACTION
