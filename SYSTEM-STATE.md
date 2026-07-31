@@ -25,7 +25,7 @@ nothing in production.
 | `scheduling/` | LangmuirScheduling | langmuir-scheduling | Standalone by design. **Verify its `KPI_URL` points at pms `/api/kpi/data`, not the retired Apps Script.** |
 | `tooling/` | langmuir-tooling | langmuir-tooling | Sheet-backed via `google-scripts/tooling-sheet`. |
 | `vision/` | LangmuirVision | langmuir-vision | Part ID by photo; reads `part_photos` from pms Postgres. |
-| `pms-test/` | LangmuirPMS_Test | langmuir-pms-test | Staging clone; lags main pms. |
+| `pms-test/` | LangmuirPMS_Test | langmuir-pms-test | Canary for risky deploys, and the home of the **PMS v2 greenfield rebuild** (`PMS_V2_DESIGN.md`). NOT a mirror of pms: last substantive commit 2026-07-06 and well behind. Do not read it to learn how production behaves. |
 | `bom/` | langmuir-bom | langmuir-bom (to create) | BOM Manager (2026-07-24): OpenBOM-style working BOMs seeded from Epicor (BF_PartBOM/BF_PartMaster/BF_OpenPOs + optional BF_Suppliers/BF_POReceipts). Working copy + Epicor baseline; `/guide` = team tutorial. Standalone by design (Brendan's call). |
 
 ## Still-active Apps Scripts (`google-scripts/`, deploy via `clasp push`)
