@@ -63,11 +63,14 @@ fi
 # 2026-07-31: bom is `Langmuir-bom` on GitHub, capital L. We were pushing to
 #   `langmuir-bom` and riding a rename redirect. Do not "fix" the capital.
 #   The Railway SERVICE is still lowercase `langmuir-bom`; they differ on purpose.
+# 2026-08-07: tooling + scheduling retired. Tooling replaced (board removed from
+#   hub); scheduling paused as "Under Development". Code preserved by archiving
+#   the langmuir-tooling and LangmuirScheduling repos on GitHub (same convention
+#   as kpi/cyclecount). Railway services langmuir-tooling and langmuir-scheduling
+#   deleted. tooling-sheet Apps Script deregistered below.
 REPOS=(
   "pms|pms|$GIT_BASE/LangmuirPMS.git|langmuir-pms"
   "pms-test|pms-test|$GIT_BASE/LangmuirPMS_Test.git|langmuir-pms-test"
-  "tooling|tooling|$GIT_BASE/langmuir-tooling.git|langmuir-tooling"
-  "scheduling|scheduling|$GIT_BASE/LangmuirScheduling.git|langmuir-scheduling"
   "vision|vision|$GIT_BASE/LangmuirVision.git|langmuir-vision"
   "hub|hub|$GIT_BASE/langmuirhub.git|langmuir-hub"
   "procurement|procurement|$GIT_BASE/Langmuir-procurement.git|langmuir-procurement"
@@ -84,7 +87,8 @@ WORKSPACE_URL="$GIT_BASE/$WORKSPACE_REPO.git"
 # Format: name|local-folder|script-id|description
 GSCRIPTS=(
   "pms-locations|pms-locations|1YdeeXb6K6zQvxfzxsXIpt6ao_vOE9ppZVplZ43Ej1OHbCK9-rkihmBZU|LIVE inventory ledger — push is immediate, no undo"
-  "tooling-sheet|tooling-sheet|1r9cl4BUhudEGmkmZbLoXsBd8bHLg6p6EhxbxcnUP1nWwjd-7GZBntla9|Backend for langmuir-tooling request board"
+  # 2026-08-07: tooling-sheet removed with the tooling retirement. Script ID was
+  # 1r9cl4BUhudEGmkmZbLoXsBd8bHLg6p6EhxbxcnUP1nWwjd-7GZBntla9 if it ever needs reviving.
 )
 
 # ─── Lookup helpers ────────────────────────────────────────────────────────────
