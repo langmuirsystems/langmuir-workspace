@@ -76,6 +76,8 @@ REPOS=(
   "procurement|procurement|$GIT_BASE/Langmuir-procurement.git|langmuir-procurement"
   "ci|ci|$GIT_BASE/langmuir-ci.git|langmuir-ci"
   "bom|bom|$GIT_BASE/Langmuir-bom.git|langmuir-bom"
+  "buyplanner|buyplanner|$GIT_BASE/buyplanner.git|buyplanner"
+  "crm|crm|$GIT_BASE/LangmuirCRM.git|LangmuirCRM"
 )
 
 # The tenth repo: the workspace root itself. Not in REPOS because it is the

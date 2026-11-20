@@ -1,0 +1,79 @@
+Part,Vendor,On hand,Usage/wk,On order,Arriving in lead time,Not on a container,Next arrival,Lead days,Why it moved
+55318,ALIBABA,393.0,47.2,500,0.0,500.0,,48,No dated arrival
+LS-LR-TUBE03,ALIBABA,915.0,235.6,3750,0.0,3750.0,,48,No dated arrival
+LS-PBRK-4364,DNOVA,432.0,53.7,500,0.0,500.0,,46,No dated arrival
+36V10APSU,EVERR,244.0,52.2,500,0.0,500.0,,30,No dated arrival
+C12-ER20-58L,FANGZ,94.0,9.9,250,0.0,250.0,,79,No dated arrival
+MR1-VISE,FANGZ,110.0,12.6,200,0.0,200.0,,79,No dated arrival
+LS-LR-2008,GLOBAL,49.0,4.3,100,0.0,100.0,,80,No dated arrival
+LS-LR-2009,GLOBAL,199.0,17.2,280,0.0,280.0,,80,No dated arrival
+LS-PBRK-4WAYDIE-HOLDER,GLOBAL,78.0,72.1,1000,0.0,1000.0,,48,No dated arrival
+LS-LR-8002,HMIGE,31.0,4.5,100,0.0,100.0,,80,No dated arrival
+LS-LR-8102,HMIGE,53.0,4.3,100,0.0,100.0,,80,No dated arrival
+LSMR1-95-12,KAWEEI,11.0,7.8,200,0.0,200.0,,32,No dated arrival
+LSPRO-WH-06,KAWEEI,405.0,33.8,300,0.0,300.0,,60,No dated arrival
+MC4000-MR1,MICRO,36.0,7.7,100,0.0,100.0,,48,No dated arrival
+LSPRO-01-27,OKING,492.0,25.7,400,0.0,400.0,,129,No dated arrival
+LV 20/77,OKING,2656.0,152.7,1600,0.0,1600.0,,100,No dated arrival
+LSPB25-95-00,PCBA,120.0,17.8,250,0.0,250.0,,39,No dated arrival
+LS-LR-2106,PTJ,46.0,4.2,100,0.0,100.0,,100,No dated arrival
+LS-LR-2107,PTJ,39.0,4.5,100,0.0,100.0,,100,No dated arrival
+LS-PBRK-5581-LH,PTJ,176.0,13.4,500,0.0,500.0,,75,No dated arrival
+LS-PBRK-5581-RH,PTJ,176.0,13.3,500,0.0,500.0,,75,No dated arrival
+LS-PBRK-1616-1,SMART,199.0,15.1,200,0.0,200.0,,68,No dated arrival
+LS-PBRK-1616-2,SMART,192.0,15.1,200,0.0,200.0,,68,No dated arrival
+LS-PBRK-1616-4,SMART,93.0,15.2,300,0.0,300.0,,68,No dated arrival
+LSXR-00-Y2,SMART,152.0,18.2,350,0.0,350.0,,80,No dated arrival
+LSXR-00-Z,SMART,190.0,17.1,400,0.0,400.0,,80,No dated arrival
+LS-209,SRIND,151.0,15.7,550,0.0,550.0,,104,No dated arrival
+LS-222,SRIND,137.0,7.8,350,0.0,350.0,,104,No dated arrival
+LS-227,SRIND,66.0,7.8,350,0.0,350.0,,104,No dated arrival
+LS-229-1,SRIND,150.0,7.8,350,0.0,350.0,,104,No dated arrival
+LS-230,SRIND,114.0,7.8,350,0.0,350.0,,104,No dated arrival
+LS-LR-1294,SRIND,5.0,1.9,100,0.0,100.0,,64,No dated arrival
+LS-MR1-1452,SRIND,258.0,15.8,550,0.0,550.0,,104,No dated arrival
+LS-MR1-181,SRIND,394.0,31.1,1000,0.0,1000.0,,104,No dated arrival
+LS-MR1-7993,SRIND,177.0,9.1,500,0.0,500.0,,104,No dated arrival
+LS-MR1-8923,SRIND,71.0,8.0,450,0.0,450.0,,104,No dated arrival
+LS-PBRK-2587,SRIND,181.0,12.0,450,0.0,450.0,,104,No dated arrival
+LS-PBRK-2889,SRIND,176.0,12.0,450,0.0,450.0,,104,No dated arrival
+LS-PBRK-4794,SRIND,182.0,12.0,450,0.0,450.0,,104,No dated arrival
+MR1-BLANK-A,SRIND,62.0,11.9,300,0.0,300.0,,104,No dated arrival
+MR1-ROUND-01,SRIND,16.0,1.7,19,0.0,19.0,,68,No dated arrival
+LS-202,STERL,96.0,7.9,782,0.0,782.0,,96,No dated arrival
+LS411-00-20,STERL,147.0,22.2,1270,0.0,1270.0,,64,No dated arrival
+LS611-00-04,STERL,829.0,74.9,2800,0.0,2800.0,,100,No dated arrival
+MFSC-1500X G6.1,THEO,38.0,4.5,100,0.0,100.0,,60,No dated arrival
+Q1CP-300U3,TRUPO,101.0,10.4,300,0.0,300.0,,68,No dated arrival
+LS-MR1-4475,WINBA,158.0,18.3,500,0.0,500.0,,43,No dated arrival
+LSPRO-THC-01,WINBA,542.0,38.8,500,0.0,500.0,,60,No dated arrival
+LSPRO-THC-02,WINBA,542.0,38.8,500,0.0,500.0,,60,No dated arrival
+LS-PBRK-4261,YOULI,242.0,13.9,250,0.0,250.0,,104,No dated arrival
+LS-MR1-9982,ZHENR,98.0,9.1,250,0.0,250.0,,68,No dated arrival
+608ZZ,ZOTY,3718.0,397.1,10000,0.0,10000.0,,45,No dated arrival
+LSMR1-95-15,KAWEEI,-4.0,8.0,100,100.0,0.0,2026-11-27,32,Out of stock now
+LS-PBRK-4387-01,MAANS,-17.0,10.7,250,250.0,0.0,2026-11-27,48,Out of stock now
+LS-PBRK-4387-02,MAANS,-66.0,19.9,400,250.0,150.0,2026-11-27,48,Out of stock now
+LS-PBRK-4387-16,MAANS,-33.0,15.9,520,270.0,250.0,2026-11-27,57,Out of stock now
+LS-PBRK-5623-02,MAANS,-27.0,10.0,180,120.0,60.0,2026-11-27,48,Out of stock now
+LS-PBRK-9355-08,MAANS,-4.0,6.7,100,100.0,0.0,2026-11-27,48,Out of stock now
+ARCFLAT-LEGS,SRIND,-1.0,20.6,1000,200.0,800.0,2026-12-04,48,Out of stock now
+LS-LR-1278,SRIND,0.0,2.2,90,0.0,90.0,,100,Out of stock now
+LS-PBRK-5034,GAJJA,211.0,23.7,600,200.0,400.0,2026-11-30,121,Runs out before next arrival
+LS-PBRK-4387-04,MAANS,2.0,11.2,240,200.0,40.0,2026-11-30,48,Runs out before next arrival
+LS-PBRK-5623-16,MAANS,3.0,5.6,90,50.0,40.0,2026-11-30,57,Runs out before next arrival
+LS-PBRK-9302-04,MAANS,14.0,9.6,140,80.0,60.0,2026-11-30,48,Runs out before next arrival
+LS-PBRK-9302-08,MAANS,10.0,9.8,150,80.0,70.0,2026-11-30,48,Runs out before next arrival
+LS-PBRK-9302-16,MAANS,54.0,9.2,120,30.0,90.0,2026-11-30,57,Runs out before next arrival
+LS-PBRK-2491,SRIND,252.0,24.1,705,168.0,537.0,2026-12-04,104,Runs out before next arrival
+LS-PBRK-5037,SRIND,243.0,12.3,450,35.0,415.0,2026-11-23,104,Runs out before next arrival
+LSXR-24,SRIND,29.0,34.7,1134,408.0,726.0,2026-11-23,100,Runs out before next arrival
+LSXR-31,SRIND,344.0,33.6,822,126.0,696.0,2026-11-20,100,Runs out before next arrival
+LSXR-38,SRIND,332.0,33.6,822,126.0,696.0,2026-11-20,100,Runs out before next arrival
+LSXR-39,SRIND,345.0,33.7,822,126.0,696.0,2026-11-20,100,Runs out before next arrival
+LSXR-52 (BUNDLED),SRIND,175.0,16.8,411,63.0,348.0,2026-11-20,100,Runs out before next arrival
+LS-PRO4-1001-LEFT,STERL,144.0,25.0,700,116.0,584.0,2026-11-23,64,Runs out before next arrival
+LS-PRO4-1001-RIGHT,STERL,151.0,24.9,700,120.0,580.0,2026-11-23,64,Runs out before next arrival
+LS411-00-06,STERL,309.0,59.5,2202,251.0,1951.0,2026-11-23,64,Runs out before next arrival
+LS411-00-141,STERL,172.0,79.8,4080,562.0,3518.0,2026-11-23,64,Runs out before next arrival
+LS411-00-16,STERL,392.0,39.4,1720,20.0,1700.0,2026-11-23,64,Runs out before next arrival
