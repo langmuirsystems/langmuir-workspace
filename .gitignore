@@ -18,6 +18,9 @@
 /buyplanner/
 /crm/
 
+# Files the Claude desktop app saves into this folder (working exports, not system files)
+/Claude outputs/
+
 # ─── Retired code ─────────────────────────────────────────────────────────────
 # _archive/ is 22 MB of superseded systems and contains nested .git folders
 # (_archive/kpi/.git, _archive/cyclecount/.git) plus a node_modules tree.
